@@ -47,14 +47,14 @@ static VALUE parse_line(VALUE self, VALUE str, VALUE encoding)
         {
             case ',':
                 if (state == UNQUOTED) {
-                    rb_ary_push(array, (index == 0 ? Qnil: rb_str_new(value, index)));
+                    rb_ary_push(array, (index == 0 ? Qnil: rb_enc_str_new(value, index, rb_encoding)));
                     index = 0;
                 }
                 else if (state == IN_QUOTED) {
                     value[index++] = c;
                 }
                 else if (state == QUOTE_IN_QUOTED) {
-                    rb_ary_push(array, rb_str_new(value, index));
+                    rb_ary_push(array, rb_enc_str_new(value, index, rb_encoding));
                     index = 0;
                     state = UNQUOTED;
                 }

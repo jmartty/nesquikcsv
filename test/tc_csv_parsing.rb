@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Tests copied from faster_csv by James Edward Gray II
 #
@@ -121,6 +122,10 @@ class TestCSVParsing < Test::Unit::TestCase
     ].each do |edge_case|
       assert_equal(edge_case.last, CsvParser.parse_line(edge_case.first, "UTF-8"))
     end
+  end
+
+  def test_encoding
+    assert_equal(["ñ","ó","¸"], CsvParser.parse_line("ñ,ó,¸", "UTF-8"))
   end
 
 end

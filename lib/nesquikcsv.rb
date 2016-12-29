@@ -54,7 +54,8 @@ class NesquikCSV
   end
   
   def self.parse_line(line, encoding)
-    CsvParser.parse_line(line, encoding)
+    r = CsvParser.parse_line(line, encoding)
+    r.map {|e| e.force_encoding(encoding) unless e.nil?} unless r.nil?
   end
 
   # Create new NesquikCSV wrapping the specified IO object
