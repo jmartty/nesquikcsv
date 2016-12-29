@@ -1,8 +1,6 @@
 # NesquikCSV
 
-Fork of the Fastest-CSV gem.
-
-Uses native C code to parse CSV lines in MRI Ruby.
+Fork of the Fastest-CSV gem to support different encodings. Uses native C code to parse CSV lines in MRI Ruby.
 
 Supports standard CSV according to RFC4180. Not the so-called "csv" from Excel.
 
@@ -16,18 +14,21 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    bundle
 
 Or install it yourself as:
 
-    $ gem install nesquikcsv
+    gem install nesquikcsv
 
 ## Usage
 
 Parse single line
 
-    NesquikCSV.parse_line("one,two,three", "UTF-8")
+    # If no encoding is specified UTF-8 is assumed
+    NesquikCSV.parse_line "one,two,three" 
      => ["one", "two", "three"]
+    NesquikCSV.parse_line "uno,dós,trés", "ASCII-8BIT"
+     => ["uno", "d\xC3\xB3s", "tr\xC3\xA9s"]
 
 Parse string in array of arrays
 
