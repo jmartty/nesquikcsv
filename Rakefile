@@ -6,6 +6,14 @@ spec = Gem::Specification.load('nesquikcsv.gemspec')
 require 'rake/extensiontask'
 Rake::ExtensionTask.new('csv_parser', spec)
 
+task :console do
+  require 'irb'
+  require 'irb/completion'
+  require 'nesquikcsv'
+  ARGV.clear
+  IRB.start
+end
+
 require 'rake/testtask'
 Rake::TestTask.new do |t|
   t.libs << "test"

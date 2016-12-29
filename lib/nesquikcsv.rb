@@ -40,8 +40,8 @@ class NesquikCSV
   end
 
   # Read all lines from the specified String into an array of arrays
-  def self.parse(data, &block)
-    csv = new(StringIO.new(data))
+  def self.parse(data, encoding="UTF-8", &block)
+    csv = new(StringIO.new(data), encoding)
     if block.nil?
       begin
         csv.read
@@ -53,20 +53,20 @@ class NesquikCSV
     end
   end
   
-  def self.parse_line(line, encoding)
-    r = CsvParser.parse_line(line, encoding)
-    r.map {|e| e.force_encoding(encoding) unless e.nil?} unless r.nil?
+  def self.parse_line(line, encoding="UTF-8")
+    CsvParser.parse_line(line, encoding)
   end
 
   # Create new NesquikCSV wrapping the specified IO object
-  def initialize(io)
+  def initialize(io, encoding="UTF-8")
     @io = io
+    @encoding = encoding
   end
   
   # Read from the wrapped IO passing each line as array to the specified block
   def each
     if block_given?
-      while row = shift
+      while row = shift(@encoding)
         yield row
       end
     else
@@ -110,8 +110,8 @@ end
 
 class String
   # Equivalent to <tt>FasterCSV::parse_line(self)</tt>
-  def parse_csv
-    CsvParser.parse_line(self)
+  def parse_csv(encoding='UTF-8')
+    CsvParser.parse_line(self, encoding)
   end
 end
 

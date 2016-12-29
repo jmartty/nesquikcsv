@@ -17,6 +17,8 @@ Gem::Specification.new do |gem|
 
   gem.extensions  = ['ext/csv_parser/extconf.rb']
   
+  gem.add_dependency "test-unit"
+
   gem.add_development_dependency "rake-compiler"
   
   gem.license = 'MIT'
