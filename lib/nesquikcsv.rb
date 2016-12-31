@@ -89,7 +89,7 @@ class NesquikCSV
 
   # Read next line from the wrapped IO and return as array or nil at EOF
   def shift(encoding='UTF-8')
-    if line = @io.gets
+    if line = get_line_with_quotes
       CsvParser.parse_line(line, encoding)
     else
       nil
@@ -106,12 +106,18 @@ class NesquikCSV
   def closed?
     @io.closed?
   end
-end
 
-class String
-  # Equivalent to <tt>FasterCSV::parse_line(self)</tt>
-  def parse_csv(encoding='UTF-8')
-    CsvParser.parse_line(self, encoding)
+  def get_line_with_quotes
+    line = @io.gets
+    if !line.nil?
+      while line.count('"').odd?
+        next_line = @io.gets
+        break if next_line.nil?
+        line << next_line
+      end
+    end
+    line
   end
-end
 
+
+end

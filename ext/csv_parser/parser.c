@@ -63,7 +63,7 @@ static VALUE parse_line(VALUE self, VALUE str, VALUE encoding)
                 if (state == UNQUOTED) {
                     state = IN_QUOTED;
                 }
-                else if (state == 1) {
+                else if (state == IN_QUOTED) {
                     state = QUOTE_IN_QUOTED;
                 }
                 else if (state == QUOTE_IN_QUOTED) {

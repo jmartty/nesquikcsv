@@ -128,4 +128,12 @@ class TestCSVParsing < Test::Unit::TestCase
     assert_equal(["ñ","ó","¸"], CsvParser.parse_line("ñ,ó,¸", "UTF-8"))
   end
 
+  def test_quoted_line_break
+    assert_equal(["foo","bar,baz\nbeam","bee"], CsvParser.parse_line("foo,\"bar,baz\nbeam\",bee", "UTF-8"))
+  end
+
+  def test_quoted_line_break_at_end
+    assert_equal(["foo","bar,baz\n","bee"], CsvParser.parse_line("foo,\"bar,baz\n\",bee", "UTF-8"))
+  end
+
 end

@@ -124,5 +124,18 @@ class TestNesquikCSVInterface < Test::Unit::TestCase
       assert_equal([["1", "2", "3"], ["4", "5"]], csv.to_a)
     end
   end
+
+  def test_multiline
+    assert_equal([["foo"],["bar"]], NesquikCSV.parse("foo\nbar"))
+  end
+
+  def test_quoted_line_break
+    assert_equal([["foo","bar,baz\nbeam","bee"],["one","two"]], NesquikCSV.parse("foo,\"bar,baz\nbeam\",bee\none,two", "UTF-8"))
+  end
+
+  def test_quoted_line_break_at_end
+    assert_equal([[nil,"foo,\nbar,baz","beam"],["one","two"]], NesquikCSV.parse(",\"foo,\nbar,baz\",beam\none,two", "UTF-8"))
+  end
+
   
 end
