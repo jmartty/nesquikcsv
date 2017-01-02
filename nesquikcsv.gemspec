@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
 
   if RUBY_PLATFORM =~ /java/
     gem.platform = "java"
+    gem.files << "lib/csv_parser.jar"
   else
     gem.extensions  = ['ext/csv_parser/extconf.rb']
   end

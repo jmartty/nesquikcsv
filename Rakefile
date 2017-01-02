@@ -4,7 +4,8 @@ require "bundler/gem_tasks"
 spec = Gem::Specification.load('nesquikcsv.gemspec')
 
 if RUBY_PLATFORM =~ /java/
-  # TODO
+  require 'rake/javaextensiontask'
+  Rake::JavaExtensionTask.new('csv_parser', spec)
 else
   require 'rake/extensiontask'
   Rake::ExtensionTask.new('csv_parser', spec)
@@ -27,3 +28,4 @@ Rake::TestTask.new do |t|
   #test.verbose = true
 end
 
+task :default => [:test]
