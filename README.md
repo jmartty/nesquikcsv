@@ -37,10 +37,11 @@ Parse single line
 Parse string in array of arrays
 
     # Read file contents into string
-    csv_data = "one,two,three"
+    csv_data = "one,two,three\nfour,five"
     # Defaults to UTF-8 encoding
     rows = NesquikCSV.parse(csv_data)
-     => ["one", "two", "three"]
+     => [["one", "two", "three"], ["four", "five"]] 
     # Or explicitly
     rows = NesquikCSV.parse(csv_data, "UTF-8")
-     => ["one", "two", "three"]
+     => [["one", "two", "three"], ["four", "five"]] 
+
