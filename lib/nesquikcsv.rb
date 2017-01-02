@@ -1,5 +1,3 @@
-# This loads either csv_parser.so, csv_parser.bundle or
-# csv_parser.jar, depending on your Ruby platform and OS
 require 'csv_parser'
 require 'stringio'
 
@@ -14,7 +12,7 @@ class NesquikCSV
     end
   end
 
-  # Opens a csv file. Pass a FastestCSV instance to the provided block,
+  # Opens a csv file. Pass a NesquikCSV instance to the provided block,
   # or return it when no block is provided
   def self.open(path, mode = "rb")
     csv = new(File.open(path, mode))
