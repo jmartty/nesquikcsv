@@ -3,8 +3,12 @@ require "bundler/gem_tasks"
 
 spec = Gem::Specification.load('nesquikcsv.gemspec')
 
-require 'rake/extensiontask'
-Rake::ExtensionTask.new('csv_parser', spec)
+if RUBY_PLATFORM =~ /java/
+  # TODO
+else
+  require 'rake/extensiontask'
+  Rake::ExtensionTask.new('csv_parser', spec)
+end
 
 task :console do
   require 'irb'

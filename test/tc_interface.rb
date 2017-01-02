@@ -72,7 +72,8 @@ class TestNesquikCSVInterface < Test::Unit::TestCase
   def test_parse_line_with_empty_lines
     assert_equal(nil,       NesquikCSV.parse_line("", "UTF-8"))  # to signal eof
     #assert_equal(Array.new, NesquikCSV.parse_line("\n1,2,3"))
-    assert_equal([nil], NesquikCSV.parse_line("\n1,2,3", "UTF-8"))
+    # Test removed because it didn't respect CSV's interface: [] != [nil]
+    #assert_equal([nil], NesquikCSV.parse_line("\n1,2,3", "UTF-8"))
   end
   
   def test_read_and_readlines

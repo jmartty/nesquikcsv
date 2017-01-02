@@ -1,4 +1,8 @@
-require 'csv_parser'
+if RUBY_PLATFORM =~ /java/
+  require 'csv'
+else
+  require 'csv_parser'
+end
 require 'stringio'
 
 # Fast CSV parser using native code
@@ -52,7 +56,11 @@ class NesquikCSV
   end
   
   def self.parse_line(line, encoding="UTF-8")
-    CsvParser.parse_line(line, encoding)
+    if RUBY_PLATFORM =~ /java/
+      CSV.parse_line(line.force_encoding(encoding))
+    else
+      CsvParser.parse_line(line, encoding)
+    end
   end
 
   # Create new NesquikCSV wrapping the specified IO object
@@ -88,7 +96,11 @@ class NesquikCSV
   # Read next line from the wrapped IO and return as array or nil at EOF
   def shift(encoding='UTF-8')
     if line = get_line_with_quotes
-      CsvParser.parse_line(line, encoding)
+      if RUBY_PLATFORM =~ /java/
+        CSV.parse_line(line.force_encoding(encoding))
+      else
+        CsvParser.parse_line(line, encoding)
+      end
     else
       nil
     end

@@ -15,7 +15,11 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = NesquikCSV::VERSION
 
-  gem.extensions  = ['ext/csv_parser/extconf.rb']
+  if RUBY_PLATFORM =~ /java/
+    gem.platform = "java"
+  else
+    gem.extensions  = ['ext/csv_parser/extconf.rb']
+  end
   
   gem.add_development_dependency "test-unit"
   gem.add_development_dependency "rake-compiler"
