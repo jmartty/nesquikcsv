@@ -56,6 +56,9 @@ class NesquikCSV
   end
   
   def self.parse_line(line, encoding="UTF-8")
+    if RUBY_PLATFORM =~ /java/
+      line = line.force_encoding(encoding)
+    end
     CsvParser.parse_line(line, encoding)
   end
 
