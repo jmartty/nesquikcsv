@@ -2,7 +2,7 @@
 
 Fork of the Fastest-CSV gem to support any encoding, using UTF-8 by default.
 
-Uses native C code to parse CSV lines in MRI Ruby, falls back to standard library CSV parser for JRuby
+Uses native C code to parse CSV lines in MRI Ruby and a pure Java extension when in JRuby.
 
 Supports standard CSV according to RFC4180. Not the so-called "csv" from Excel.
 
