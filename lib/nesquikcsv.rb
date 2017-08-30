@@ -59,7 +59,7 @@ class NesquikCSV
     if RUBY_PLATFORM =~ /java/
       line = line.force_encoding(encoding)
     end
-    CsvParser.parse_line(line, encoding)
+    safe_to_a CsvParser.parse_line(line, encoding)
   end
 
   # Create new NesquikCSV wrapping the specified IO object
@@ -95,7 +95,7 @@ class NesquikCSV
   # Read next line from the wrapped IO and return as array or nil at EOF
   def shift(encoding='UTF-8')
     if line = get_line_with_quotes
-      CsvParser.parse_line(line, encoding)
+      NesquikCSV.safe_to_a CsvParser.parse_line(line, encoding)
     else
       nil
     end
@@ -124,5 +124,12 @@ class NesquikCSV
     line
   end
 
+  def self.safe_to_a(arg)
+    if arg.nil?
+      nil
+    else
+      arg.to_a
+    end
+  end
 
 end
